@@ -1,7 +1,16 @@
 <script>
-  import { url } from "@sveltech/routify";
+  import { url,  route, meta } from "@sveltech/routify";
   import NavLinks from "./_components/NavLinks.svelte";
   import RenderStatus from "./_components/RenderStatus.svelte";
+
+  meta.template('title', title => `Routify example${title ? ` - ${title}` : ""}`); 
+  $: pageName = $route.shortPath.split('/').pop().replace('example', '')
+  $: meta.title = pageName.charAt(0).toUpperCase() + pageName.slice(1)
+  $: meta.description = `Example of ${pageName} handling in Routify`
+  $: meta.type = 'website'
+  $: meta.url = 'http://routify.dev' + $url($route.path)
+  $: meta.image = 'http://routify.dev/example/Routify-t.png'
+  
 </script>
 
 <style>
@@ -29,8 +38,16 @@
     box-shadow: 0px 5px 20px 5px rgba(0, 0, 0, 0.075);
   }
 
-  .nav {position: fixed; left: 0; right: 0;}
-  .main {overflow: auto; height: calc(100% - 100px); padding-top: 100px}
+  .nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+  }
+  .main {
+    overflow: auto;
+    height: calc(100% - 100px);
+    padding-top: 100px;
+  }
 </style>
 
 <!-- Reset files doesn't inherit the parent scope.

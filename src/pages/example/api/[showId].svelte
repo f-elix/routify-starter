@@ -1,9 +1,11 @@
 <script>
-  import { ready, url } from "@sveltech/routify";
+  import { ready, url, meta } from "@sveltech/routify";
   export let showId;
   let series = {};
 
   $: updateShow(showId);
+  $: meta.title = series.name
+  $: meta.description = series.summary
 
   function updateShow(id) {
     fetch(`https://api.tvmaze.com/shows/${id}`)
