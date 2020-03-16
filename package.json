@@ -5,6 +5,7 @@
     "dev": "routify",
     "dev:split": "routify --dynamic-imports",
     "build": "routify -b && rollup -c && routify -bD && rollup -c && routify export",
+    "build:now": "cd scripts/now && npm run build",
     "start": "sirv dist --single __app.html",
     "preview-build": "cd scripts/server && node index",
     "deploy:now": "cd scripts/now && npm run deploy",
