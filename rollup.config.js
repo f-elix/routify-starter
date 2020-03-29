@@ -1,6 +1,6 @@
 import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import { config } from '@sveltech/routify'
@@ -27,8 +27,12 @@ export default {
 		[split ? 'dir' : 'file']: split ? `${buildDir}` : `${buildDir}/bundle.js`
 	}],
 	plugins: [
-		copy({ targets: [{ src: staticDir + '/*', dest: distDir }] }),
-		copy({ targets: [{ src: template, dest: distDir, rename: '__app.html' }] }),
+		copy({
+			targets: [
+			  { src: staticDir + '/*', dest: distDir },
+			  { src: template, dest: distDir, rename: '__app.html' },
+			], copyOnce: true
+		  }),
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,
